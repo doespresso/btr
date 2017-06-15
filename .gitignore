@@ -1,0 +1,12 @@
+.idea
+index.html
+.DS_Store
+node_modules/
+npm-debug.log
+yarn-error.log
+/_
+/dist
+/app
+/src
+webpack.config.js
+.babelrc

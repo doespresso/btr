@@ -1,0 +1,45 @@
+{% if block['isSwiper'] is defined and block.isSwiper == 1 and news|length>3%}
+    {% set classes = ' swiper--cards ' %}
+    {% set arrows = 1 %}
+    {% set centered = 1 %}
+    {% set loop = 'false' %}
+    {% set swiperData = news %}
+    {% set cardTemplate = 'publications/_card.html' %}
+    {% set spb ="
+            spaceBetween: 0,
+            slidesPerView: 4,
+            slidesPerGroup:4,
+            centeredSlides:false,
+            breakpoints: {
+            640: {
+            slidesPerView: 1,
+            slidesPerGroup:1,
+            },
+            920: {
+            slidesPerView: 2,
+            slidesPerGroup:2,
+            },
+            1400: {
+            slidesPerView: 3,
+            slidesPerGroup:3,
+            },
+            1600: {
+            slidesPerView: 4,
+            slidesPerGroup:4,
+            },
+            1800: {
+            slidesPerView: 4,
+            slidesPerGroup:4,
+            }
+            }" %}
+    {% include "_swiper/_swiper.html" %}
+{% else %}
+    {% if news|length<4 %}
+        {% set templ = "publications/_list-cards.html" %}
+    {% else %}
+        {% set templ = "publications/" ~ tmpl %}
+    {% endif %}
+
+    {% include templ %}
+{% endif %}
+

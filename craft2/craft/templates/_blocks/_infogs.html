@@ -1,0 +1,14 @@
+{% if block['isSwiper'] is defined and block.isSwiper == 1 %}
+    {% set classes = 'swiper--infogs title-size-' ~ block.blockDigitSize ~ ' icons-' ~ block.blockShowIcons ~ ' icon-size-' ~ block.blockIconSize ~ ' i-center-' ~ block.blockCenter %}
+    {% set arrows = 0 %}
+    {% set perview = '1' %}
+    {% set centered = block.blockCenter %}
+    {% set loop = 'true' %}
+    {% set swiperData = infogs %}
+    {% set cardTemplate = 'infogs/_item.html' %}
+    {% include "_swiper/_swiper.html" %}
+{% else %}
+    {% set templ = "infogs/_grid.html" %}
+    {% include templ %}
+{% endif %}
+
