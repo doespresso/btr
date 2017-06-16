@@ -1,9 +1,109 @@
 
 {#{% cache globally using key craft.request.path %}#}
 
-    {% set homepage = craft.entries.slug('homepage').first() %}
-    {% set ishomepage = false %}
+    {% set allServices = craft.entries.section('services').level(1) %}
+    {% set allBranches = craft.entries.section('branches').level(1) %}
+
+    {% set homepage = craft.entries.slug('homepage')[0] %}
+    {% set ishomepage = entry is defined and entry.section == 'homepage' %}
+
+{#breadcrumbs#}
+{% import "menus/_macros-link.html" as link %}
+
+{% set breadcrumbs = [] %}
+{% set innerChild = false %}
+{% set currentCurrent = null %}
+
+{% if not ishomepage %}
+    {% if entry is defined %}
+        {% set current = entry %}
+        {% if current.type == 'typePerson' or current.type == 'typePublication' %}
+
+            {% set innerChild = true %}
+
+            {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(current),'url':link.url(current)}]) %}
+
+            {% if current.type == 'typePerson' %}
+                {% set currentParent = craft.entries.section('pages').relatedTo(current.personStatus[0]).first() %}
+            {% elseif current.type == 'typePublication' %}
+                {% set currentParent = craft.entries.section('pages').relatedTo(current.publicationCategory[0]).first() %}
+            {% endif %}
+
+            {% if currentParent %}
+                {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParent),'url':link.url(currentParent)}]) %}
+                {% if currentParent.level>1 and currentParent.parent is defined %}
+                    {% set currentParentParent = currentParent.parent %}
+                    {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParentParent),'url':link.url(currentParentParent)}]) %}
+                {% endif %}
+            {% endif %}
+
+        {% else %}
+
+            {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(current),'url':link.url(current)}]) %}
+            {% set currentCurrent = current %}
+
+            {% if currentCurrent.level>1 and currentCurrent.parent is defined %}
+                {% set currentParent = currentCurrent.parent %}
+                {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParent),'url':link.url(currentParent)}]) %}
+                {% if currentParent.level>1 and currentParent.parent is defined %}
+                    {% set currentParentParent = currentParent.parent %}
+                    {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParentParent),'url':link.url(currentParentParent)}]) %}
+                {% endif %}
+            {% endif %}
+
+        {% endif %}
+
+    {% elseif category is defined %}
+
+        {% set current = category %}
+        {% set currentCurrent = craft.entries.section('pages').relatedTo(current).first() %}
+        {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentCurrent),'url':link.url(currentCurrent)}]) %}
+        {% if currentCurrent.level>1 and currentCurrent.parent is defined %}
+            {% set currentParent = currentCurrent.parent %}
+            {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParent),'url':link.url(currentParent)}]) %}
+            {% if currentParent.level>1 and currentParent.parent is defined %}
+                {% set currentParentParent = currentParent.parent %}
+                {% set breadcrumbs = breadcrumbs|merge([{'title':link.title(currentParentParent),'url':link.url(currentParentParent)}]) %}
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+
+    {% if breadcrumbs|length>0 %}
+        {% set backNav %}
+            <div id="back-nav">
+                <md-menu md-size="6" md-disabled="true">
+                    <md-button class="md-icon-button" md-menu-trigger>
+                        <md-icon class="big-icon">arrow_back</md-icon>
+                    </md-button>
+                    <md-menu-content class="back-nav">
+                        <md-menu-item href="{{ siteUrl }}">
+                            <md-icon>home</md-icon>
+                            <span>{{ 'Homepage'|t }}</span>
+                        </md-menu-item>
+                        {% for item in breadcrumbs | reverse %}
+                            {% if not loop.last %}
+                            <md-menu-item href="{{ item.url }}">
+                                <md-icon>chevron_left</md-icon>
+                                <span>{{ item.title }}</span>
+                            </md-menu-item>
+                            {% endif %}
+                        {% endfor %}
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        {% endset %}
+    {% endif %}
+{% else %}
+    homepage
+{% endif %}
+{#breadcrumbs#}
+
+
+
+
     {% set headerTitle =  siteName %}
+
 
     {% set gDes = globalDesign %}
     {% set headerTheme = 'ct' ~ gDes.styleThemeObject[0].id %}
@@ -251,38 +351,38 @@
     {#{{ item.title }}#}
 {#{% endfor %}#}
 
-{% cache globally using key craft.request.path %}
-        {% if bc|length>0 %}
-            {% set backNav %}
-                <div id="back-nav">
-                    <md-menu md-size="5" md-disabled="true">
-                        <md-button class="md-icon-button" md-menu-trigger>
-                            <md-icon class="big-icon">arrow_back</md-icon>
-                        </md-button>
-                        <md-menu-content class="back-nav">
-                            <md-menu-item href="{{ siteUrl }}">
-                                <md-icon>home</md-icon>
-                                <span>{{ 'Homepage'|t }}</span>
-                            </md-menu-item>
-                            {% for item in bc if item.hideBc !=1 | reverse %}
+{#{% cache globally using key craft.request.path %}#}
+        {#{% if bc|length>0 %}#}
+            {#{% set backNav %}#}
+                {#<div id="back-nav">#}
+                    {#<md-menu md-size="5" md-disabled="true">#}
+                        {#<md-button class="md-icon-button" md-menu-trigger>#}
+                            {#<md-icon class="big-icon">arrow_back</md-icon>#}
+                        {#</md-button>#}
+                        {#<md-menu-content class="back-nav">#}
+                            {#<md-menu-item href="{{ siteUrl }}">#}
+                                {#<md-icon>home</md-icon>#}
+                                {#<span>{{ 'Homepage'|t }}</span>#}
+                            {#</md-menu-item>#}
+                            {#{% for item in bc if item.hideBc !=1 | reverse %}#}
                                 {#{% if not loop.last or not addLast %}#}
-                                {% if item.menuItem.blocks[0].type != "Url" %}
-                                    {% set mUrl = item.menuItem.blocks[0].obj[0] is defined ? item.menuItem.blocks[0].obj[0].url %}
-                                {% else %}
-                                    {% set mUrl = item.menuItem.blocks[0].obj %}
-                                {% endif %}
-                                <md-menu-item href="{{ mUrl }}">
-                                    <span>{{ item.title }}</span>
-                                    <md-icon>chevron_left</md-icon>
-                                </md-menu-item>
+                                {#{% if item.menuItem.blocks[0].type != "Url" %}#}
+                                    {#{% set mUrl = item.menuItem.blocks[0].obj[0] is defined ? item.menuItem.blocks[0].obj[0].url %}#}
+                                {#{% else %}#}
+                                    {#{% set mUrl = item.menuItem.blocks[0].obj %}#}
                                 {#{% endif %}#}
-                            {% endfor %}
-                        </md-menu-content>
-                    </md-menu>
-                </div>
-            {% endset %}
-        {% endif %}
-{% endcache %}
+                                {#<md-menu-item href="{{ mUrl }}">#}
+                                    {#<span>{{ item.title }}</span>#}
+                                    {#<md-icon>chevron_left</md-icon>#}
+                                {#</md-menu-item>#}
+                                {#{% endif %}#}
+                            {#{% endfor %}#}
+                        {#</md-menu-content>#}
+                    {#</md-menu>#}
+                {#</div>#}
+            {#{% endset %}#}
+        {#{% endif %}#}
+{#{% endcache %}#}
 
 {% set cnav = [] %}
 {% set snav = [] %}
@@ -318,6 +418,9 @@
 {#{% for item in cnav %}#}
     {#{{ item.title }}#}
 {#{% endfor %}#}
+
+
+
 
 
 

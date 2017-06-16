@@ -1,0 +1,10 @@
+{% macro url(page) %}
+    {% if page.type == 'typePagePersons' %}{{ page.personStatus[0].url }}
+    {% elseif page.type == 'typePagePublications' %}{{ page.publicationCategory[0].url }}
+    {% elseif page.type == 'typePageLink' %}{{ page.mUrl }}
+    {% else %}{{ page.url }}{% endif %}
+{% endmacro %}
+
+{% macro title(page) %}
+    {% if page.mTitle %}{{ page.mTitle }}{% else %}{{ page.title }}{% endif %}
+{% endmacro %}
