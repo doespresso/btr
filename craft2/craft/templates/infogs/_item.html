@@ -1,11 +1,11 @@
 <div class="teaser">
-    {% if block.blockShowIcons == 1 %}<div class="teaser-icon icon-ani--draw animated">{{ item.infogIcon ? item.infogIcon.inline }}</div>{% endif %}
+    {% if block.blockShowIcons and item.infogIcon %}<div class="teaser-icon">{{item.infogIcon.inline }}</div>{% endif %}
     <div class="teaser-title t-color">
-        {{ item.infogBig|length ? item.infogBig }}
-        {% if item.infogM|length and block.blockShowMeter == 1 %}<span>{{ item.infogM }}</span>{% endif %}
+        {{ item.infogBig }}
+        {% if item.infogM|length and block.blockShowMeter %}<span>{{ item.infogM }}</span>{% endif %}
     </div>
     <div class="teaser-text t-color">{{ item.infogText|length ? item.infogText }}</div>
-    {% if block.blockShowLink == 1 and item.infogLink|length %}
+    {% if showActions and item.infogLink %}
         <div class="actions">
             <md-button href="{{ item.infogLink }}" class="md-raised">{{ 'Show More'|t }}</md-button>
         </div>

@@ -1,0 +1,17 @@
+{% macro simple(title, content, color, bg, actions) %}
+    {% if title or content or actions %}
+        <div class="section">
+            {% if title %}
+                <div class="section-title">{{ title }}</div>
+            {% endif %}
+            {% if content %}
+                <div class="section-content">{{ content }}</div>
+            {% endif %}
+            {% if actions %}
+                <div class="actions">
+                    actions list
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
