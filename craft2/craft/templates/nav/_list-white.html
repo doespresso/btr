@@ -2,9 +2,9 @@
 {% set list_classes='' %}
 <div class="section-content">
     <md-whiteframe md-elevation="1">
-        <md-list class="md-primary{{ list_classes }} list--nav">
-            {% if list_subhead is defined and list_subhead|length %}
-                <md-subheader>{{ list_subhead }}</md-subheader>
+        <md-list class="md-primary {{ list_classes }} list--nav">
+            {% if sectionTitle is defined and sectionTitle|length %}
+                <md-subheader>{{ sectionTitle }}</md-subheader>
             {% endif %}
             {% for item in navs %}
                 {% if item.id != current.id or showCurrent %}

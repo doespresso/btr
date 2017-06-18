@@ -6,32 +6,22 @@
     {% set swiperData = news %}
     {% set cardTemplate = 'publications/_card.html' %}
     {% set spb ="
-            spaceBetween: 0,
-            slidesPerView: 4,
-            slidesPerGroup:4,
+            spaceBetween: 40,
+            slidesPerView: 'auto',
             centeredSlides:false,
             breakpoints: {
             640: {
             slidesPerView: 1,
             slidesPerGroup:1,
+            spaceBetween: 0,
             },
             920: {
+            spaceBetween: 0,
             slidesPerView: 2,
             slidesPerGroup:2,
-            },
-            1400: {
-            slidesPerView: 3,
-            slidesPerGroup:3,
-            },
-            1600: {
-            slidesPerView: 4,
-            slidesPerGroup:4,
-            },
-            1800: {
-            slidesPerView: 4,
-            slidesPerGroup:4,
             }
             }" %}
+
     {% include "_swiper/_swiper.html" %}
 {% else %}
     {% if news|length<4 %}

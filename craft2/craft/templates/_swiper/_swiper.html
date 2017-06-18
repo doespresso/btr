@@ -13,8 +13,9 @@
         'centeredSlides':'{{ centered is defined and centered == 0 ? false : true }}',
         loop:{{ loop }},
         {{ autoplay is defined ? autoplay }}
-        {% if pagination is not defined or pagination != 0 %}
-        pagination: '.swiper-pagination',paginationClickable: true,
+        {% if pagination is defined and pagination %}
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
         {% endif %}
         nextButton: '.swiper-button-next',prevButton: '.swiper-button-prev',
         {% if spb is defined %}

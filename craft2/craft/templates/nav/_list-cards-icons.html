@@ -1,4 +1,4 @@
-<div class="section-content">
+
     <div class="grid-3_xs-1_sm-1_md-2_lg-3-equalHeight cards cards--nav icons-1">
         {% for item in navs %}
             {% if item.id != current.id or showCurrent %}
@@ -6,9 +6,14 @@
                     <a href="{{ item.url }}">
                         <md-card md-with-hover class="card-ripple">
                             <md-card-header class="md-flex">
-                                {% if item.styleIcon %}
+                                {% if entryIcons %}
+                                    {% set cardIcon = item.styleIcon %}
+                                {% else %}
+                                    {% set cardIcon = item.cardIcon %}
+                                {% endif %}
+                                {% if cardIcon %}
                                     <md-card-media class="media-left">
-                                        <div class="card-icon">{{ item.styleIcon ? item.styleIcon.inline }}</div>
+                                        <div class="card-icon">{{ cardIcon ? cardIcon.inline }}</div>
                                     </md-card-media>
                                 {% endif %}
                                 <md-card-header-text>
@@ -29,4 +34,3 @@
             {% endif %}
         {% endfor %}
     </div>
-</div>

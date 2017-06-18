@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'Details'=>'Подробности',
 	'Our offices'=>'Наши офисы',
 	'Homepage'=>'Главная',
 	'Date & place'=>'Время и место проведения',
