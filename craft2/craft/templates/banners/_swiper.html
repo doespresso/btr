@@ -1,9 +1,9 @@
 <swiper class="swiper--banners arrows--t-25p" :options="{
         roundLengths: true,
         slidesPerView:1,
-        effect:'fade',
-        autoplay:8000,
-        loop:true,
+        effect:'{{ block.swiperEffect is defined ? block.swiperEffect : 'fade' }}',
+        {#autoplay:{{ block.swiperAutoplay is defined ? block.swiperAutoplay : '10000' }},#}
+        loop:{{ block.swiperLoop is defined ? block.swiperLoop : 'false' }},
         centeredSlides:true,
         pagination: '.swiper-pagination',
         paginationClickable: true,

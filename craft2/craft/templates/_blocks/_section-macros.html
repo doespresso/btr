@@ -28,12 +28,17 @@
 {% set padding = block['blockPad'] is defined and block.blockPad|length ? block.blockPad[0].padClasses %}
 
 {% set bIcon = block['blockIcon'] is defined and block.blockIcon is not empty ? block.blockIcon %}
-{% set eIcon = current.styleIcon2 ? current.styleIcon2 %}
+{#{% if block.type == 'sectionExperst' or block.type == 'sectionProjects' %}#}
+    {% set eIcon = current.styleIcon2 ? current.styleIcon2 %}
+{#{% endif %}#}
 {% set bContainer = block['blockContainer'] is defined and block.blockContainer ? true : false %}
 {% set iconTheme = block['blockIconTheme'] is defined and block.blockIconTheme|length ? block.blockIconTheme[0] %}
 {% set mono = block['blockTheme'] is defined and block.blockTheme|length ? 'icon--multi' : 'icon--mono-0' %}
 
+
 {% set bTitle = block['blockTitle'] is defined and block.blockTitle is not empty ? block.blockTitle %}
+{% set bTitleIcon = block['blockTitleIcon'] is defined and block.blockTitleIcon is not empty ? block.blockTitleIcon %}
+
 
 <section class="section {{ bTheme }} {{ padding }}">
 
@@ -50,11 +55,21 @@
         </div>
     {% endif %}
 
-    {% if bTitle|length and not innerTitle and block.type != "sectionTabs" %}
-        {% if not innerTitle %}
-            <div class="ctr section-title t-color {{ block.type == "sectionQuotes" or block.type == "sectionPublications" ? 'icon-section' }}">{{ bTitle }}</div>
+    {% if bTitleIcon %}
+        <div class="ctr section-title t-color">
+            <md-icon class="md-size-2x">{{ bTitleIcon }}</md-icon>
+        </div>
+    {% else %}
+        {% if bTitle|length and not innerTitle and block.type != "sectionTabs" %}
+            {% if not innerTitle %}
+                <div class="ctr section-title t-color">
+                    {{ bTitle }}
+                </div>
+            {% endif %}
         {% endif %}
     {% endif %}
+
+
 
     {% if bContainer %}
     <div class="ctr section-content">{% endif %}
