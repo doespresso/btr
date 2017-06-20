@@ -1,5 +1,6 @@
 {% set list_divider=true %}
 {% set list_classes='md-medium' %}
+{% import "menus/_macros-link.html" as link %}
 <div class="section-content">
     <md-whiteframe md-elevation="1">
         <md-list class="md-primary {{ list_classes }} list--nav">
@@ -8,7 +9,8 @@
             {% endif %}
             {% for item in navs %}
                 {% if item.id != current.id or showCurrent %}
-                    <md-list-item {{ "href=#{item.url}" }}>
+                    {% set href = link.url(item)|trim %}
+                    <md-list-item href="{{ href }}">
                         {% if list_divider is defined  and list_divider == true %}
                             <md-divider></md-divider>
                         {% endif %}

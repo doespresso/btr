@@ -270,10 +270,10 @@
                             {% set labels = block.blockLabels %}
                             {% set backdrop = block.blockBackdrop %}
 
-                            {% if block.blockContent|length == 1 %}
+                            {% if images|length == 1 %}
                                 {% set img = images[0] %}
                                 {% include "images/_image.html" %}
-                            {% elseif block.blockContent > 1 %}
+                            {% elseif images|length > 1 %}
                                 {% include "images/_swiper.html" %}
                             {% else %}
                                 {% set be = true %}
@@ -529,7 +529,7 @@
             {% endif %}
 
             {% if block.type == "sectionHtml" and (block.blockTitle or block.blockContent) %}
-                        {{ block.blockContent }}
+                <div class="html-content">{{ block.blockContent }}</div>
             {% endif %}
 
             {% if block.type == "sectionHtmlCard" and (block.blockTitle or block.blockContent) %}
@@ -570,10 +570,10 @@
                 {% set labels = block.blockLabels %}
                 {% set backdrop = block.blockBackdrop %}
 
-                {% if block.blockContent|length == 1 %}
+                {% if images|length == 1 %}
                     {% set img = images[0] %}
                     {% include "images/_image.html" %}
-                {% elseif block.blockContent > 1 %}
+                {% elseif images|length > 1 %}
                     {% include "images/_swiper.html" %}
                 {% else %}
                     {% set be = true %}

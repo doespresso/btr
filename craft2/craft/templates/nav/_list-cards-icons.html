@@ -1,9 +1,10 @@
-
+{% import "menus/_macros-link.html" as link %}
     <div class="grid-3_xs-1_sm-1_md-2_lg-3-equalHeight cards cards--nav icons-1">
         {% for item in navs %}
             {% if item.id != current.id or showCurrent %}
+                {% set href = link.url(item)|trim %}
                 <div class="col">
-                    <a href="{{ item.url }}">
+                    <a href="{{ href }}">
                         <md-card md-with-hover class="card-ripple">
                             <md-card-header class="md-flex">
                                 {% if entryIcons %}

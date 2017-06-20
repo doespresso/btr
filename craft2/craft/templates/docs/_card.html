@@ -1,5 +1,8 @@
 <div class="col">
-    <md-card class="card--news {{ item.cardColor|length and item.cardFullColor ? 'md-primary'}}" md-with-hover md-theme="{{ item.cardColor|length ? 'ct'~item.cardColor[0].id }}">
+    <md-card
+            class="card--news {{ item.cardColor|length and item.cardFullColor ? 'md-primary' }} {{ item.cardColor|length ? 'themed' }}"
+            md-with-hover
+            md-theme="{{ item.cardColor|length ? 'ct'~item.cardColor[0].id }}">
         <md-card-area class="md-flex">
             {% if item.cardImg|length or item.styleIcon %}
                 {% if item.cardImg|length %}

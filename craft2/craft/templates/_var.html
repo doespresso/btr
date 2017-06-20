@@ -370,30 +370,7 @@
 
 
 
-{#{% set cnav = [] %}#}
-{#{% set snav = [] %}#}
 
-        {#{% if cm|length>0 %}#}
-            {#{% for item in cm if item.hideBc !=1 %}#}
-                {#{% if item.menuItem.blocks[0].type != "Url" %}#}
-                    {#{% set mItem = item.menuItem.blocks[0].obj[0] is defined ? item.menuItem.blocks[0].obj[0] %}#}
-                {#{% else %}#}
-                    {#{% set mItem = {'title':item.title, 'url': item.menuItem.blocks[0].obj } %}#}
-                {#{% endif %}#}
-                {#{% set cnav = cnav|merge([mItem]) %}#}
-            {#{% endfor %}#}
-        {#{% endif %}#}
-
-        {#{% if sm|length>0 %}#}
-            {#{% for item in sm if item.hideBc !=1 %}#}
-                {#{% if item.menuItem.blocks[0].type != "Url" %}#}
-                    {#{% set mItem = item.menuItem.blocks[0].obj[0] is defined ? item.menuItem.blocks[0].obj[0] %}#}
-                {#{% else %}#}
-                    {#{% set mItem = {'title':item.title, 'url': item.menuItem.blocks[0].obj } %}#}
-                {#{% endif %}#}
-                {#{% set snav = snav|merge([mItem]) %}#}
-            {#{% endfor %}#}
-        {#{% endif %}#}
 
 
 
