@@ -1,5 +1,5 @@
 {% extends "_page.html" %}
-{% set persons = craft.entries.section('persons').relatedTo(category).order('personLastname') %}
+{% set persons = craft.entries.section('persons').relatedTo(category).with(['personPhoto','relatedServices','relatedBranches']).order('personLastname') %}
 
 {% block content %}
     <section class="section">

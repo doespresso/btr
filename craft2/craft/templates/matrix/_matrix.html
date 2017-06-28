@@ -91,8 +91,9 @@
                             {% if block.blockSource == 'last' %}
                                 {% set news = craft.entries({
                                 section:'publications',
+                                id:'not '~entry.id,
                                 order:'cardIsSticky desc, postDate desc',
-                                with:['cardColor','cardImg','publicationCategory']
+                                with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                                 }).limit(perpage)
                                 %}
                             {% elseif block.blockSource == 'added' and block.blockContent|length %}
@@ -104,14 +105,14 @@
                                 section:'publications',
                                 relatedTo:tagged,
                                 id:'not '~entry.id,
-                                with:['cardColor','cardImg','publicationCategory']
+                                with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                                 }).limit(perpage) %}
 
                                 {% if news|length<2 %}
                                     {% set news = craft.entries({
                                     section:'publications',
                                     id:'not '~entry.id,
-                                    with:['cardColor','cardImg','publicationCategory']
+                                    with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                                     }).limit(perpage) %}
                                 {% endif %}
                             {% endif %}
@@ -389,8 +390,9 @@
                 {% if block.blockSource == 'last' %}
                     {% set news = craft.entries({
                     section:'publications',
+                    id:'not '~entry.id,
                     order:'cardIsSticky desc, postDate desc',
-                    with:['cardColor','cardImg','publicationCategory']
+                    with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                     }).limit(perpage)
                     %}
                 {% elseif block.blockSource == 'added' and block.blockContent|length %}
@@ -402,14 +404,14 @@
                     section:'publications',
                     relatedTo:tagged,
                     id:'not '~entry.id,
-                    with:['cardColor','cardImg','publicationCategory']
+                    with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                     }).limit(perpage) %}
 
                     {% if news|length<2 %}
                         {% set news = craft.entries({
                         section:'publications',
                         id:'not '~entry.id,
-                        with:['cardColor','cardImg','publicationCategory']
+                        with:['cardColor','cardImg','publicationCategory','publicationDoc','publicationRedirect']
                         }).limit(perpage) %}
                     {% endif %}
                 {% endif %}
